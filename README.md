@@ -28,7 +28,7 @@ Note: `@babel/runtime` is very a common dependency among many JS libraries. So i
 or via jsDelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/typesense@2/dist/typesense.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typesense@3/dist/typesense.min.js"></script>
 ```
 
 ## Usage
