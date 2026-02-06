@@ -1,8 +1,5 @@
 import ApiCall from "./ApiCall";
 import { SynonymItemSchema } from "./SynonymSets";
-export interface SynonymSetItemDeleteSchema {
-    id: string;
-}
 export default class SynonymSetItems {
     private synonymSetName;
     private apiCall;

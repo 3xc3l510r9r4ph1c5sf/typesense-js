@@ -1,5 +1,5 @@
 import ApiCall from "./ApiCall";
-import { CurationSetDeleteResponseSchema, CurationSetSchema, CurationSetUpsertSchema } from "./CurationSets";
+import type { CurationSetDeleteResponseSchema, CurationSetSchema, CurationSetUpsertSchema } from "./CurationSets";
 import CurationSetItems from "./CurationSetItems";
 import CurationSetItem from "./CurationSetItem";
 export default class CurationSet {

@@ -4708,6 +4708,25 @@ var Operations = /*#__PURE__*/function () {
       }
       return perform;
     }()
+  }, {
+    key: "getSchemaChanges",
+    value: function () {
+      var _getSchemaChanges = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              return _context2.abrupt("return", this.apiCall.get("".concat(RESOURCEPATH, "/schema_changes")));
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function getSchemaChanges() {
+        return _getSchemaChanges.apply(this, arguments);
+      }
+      return getSchemaChanges;
+    }()
   }]);
   return Operations;
 }();
@@ -5705,6 +5724,25 @@ var StemmingDictionary = /*#__PURE__*/function () {
         return _retrieve.apply(this, arguments);
       }
       return retrieve;
+    }()
+  }, {
+    key: "delete",
+    value: function () {
+      var _delete2 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              return _context2.abrupt("return", this.apiCall.delete(this.endpointPath()));
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function _delete() {
+        return _delete2.apply(this, arguments);
+      }
+      return _delete;
     }()
   }, {
     key: "endpointPath",
