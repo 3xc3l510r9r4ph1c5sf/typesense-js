@@ -11,6 +11,10 @@ export interface StemmingDictionarySchema {
   words: StemmingDictionaryCreateSchema[];
 }
 
+export interface StemmingDictionaryDeleteSchema {
+  id: string;
+}
+
 export default class StemmingDictionary {
   constructor(
     private id: string,
@@ -19,6 +23,12 @@ export default class StemmingDictionary {
 
   async retrieve(): Promise<StemmingDictionarySchema> {
     return this.apiCall.get<StemmingDictionarySchema>(this.endpointPath());
+  }
+
+  async delete(): Promise<StemmingDictionaryDeleteSchema> {
+    return this.apiCall.delete<StemmingDictionaryDeleteSchema>(
+      this.endpointPath(),
+    );
   }
 
   private endpointPath(): string {

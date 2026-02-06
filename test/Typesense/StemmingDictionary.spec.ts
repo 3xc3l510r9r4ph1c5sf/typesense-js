@@ -55,4 +55,31 @@ describe("StemmingDictionary", function () {
       });
     });
   });
+
+  describe(".delete", function () {
+    it("deletes the dictionary", async function () {
+      mockAxios
+        .onDelete(
+          apiCall.uriFor(
+            "/stemming/dictionaries/set1",
+            typesense.configuration.nodes[0],
+          ),
+          null,
+          {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "X-TYPESENSE-API-KEY": typesense.configuration.apiKey,
+          },
+        )
+        .reply(200, {
+          id: "set1",
+        });
+
+      const returnData = await stemmingDictionary.delete();
+
+      expect(returnData).toEqual({
+        id: "set1",
+      });
+    });
+  });
 });
