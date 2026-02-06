@@ -2,6 +2,12 @@ import ApiCall from "./ApiCall";
 
 const RESOURCEPATH = "/operations";
 
+export interface SchemaChangeStatus {
+  collection: string;
+  validated_docs: number;
+  altered_docs: number;
+}
+
 export default class Operations {
   constructor(private apiCall: ApiCall) {}
 
@@ -10,7 +16,6 @@ export default class Operations {
       | "vote"
       | "snapshot"
       | "cache/clear"
-      | "schema_changes"
       // eslint-disable-next-line @typescript-eslint/ban-types -- Can't use `object` here, it needs to intersect with `{}`
       | (string & {}),
     queryParameters: Record<string, any> = {},
@@ -19,6 +24,12 @@ export default class Operations {
       `${RESOURCEPATH}/${operationName}`,
       {},
       queryParameters,
+    );
+  }
+
+  async getSchemaChanges(): Promise<SchemaChangeStatus[]> {
+    return this.apiCall.get<SchemaChangeStatus[]>(
+      `${RESOURCEPATH}/schema_changes`,
     );
   }
 }

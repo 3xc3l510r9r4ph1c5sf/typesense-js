@@ -1,7 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { Client as TypesenseClient } from "../../src/Typesense";
 import Operations from "../../src/Typesense/Operations";
 import ApiCall from "../../src/Typesense/ApiCall";
+import axios from "axios";
+import MockAxiosAdapter from "axios-mock-adapter";
 
 describe("Operations", function () {
   const typesense = new TypesenseClient({
@@ -57,5 +59,67 @@ describe("Operations", function () {
       snapshot_path: "/tmp/dbsnap",
     });
     expect(result).toBeInstanceOf(Promise);
+  });
+
+  describe(".getSchemaChanges", function () {
+    let mockAxios: MockAxiosAdapter;
+
+    beforeEach(function () {
+      mockAxios = new MockAxiosAdapter(axios);
+    });
+
+    it("returns schema change statuses when changes are in progress", async function () {
+      mockAxios
+        .onGet(
+          apiCall.uriFor(
+            "/operations/schema_changes",
+            typesense.configuration.nodes[0],
+          ),
+          null,
+          {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "X-TYPESENSE-API-KEY": typesense.configuration.apiKey,
+          },
+        )
+        .reply(200, [
+          {
+            collection: "companies",
+            validated_docs: 873000,
+            altered_docs: 0,
+          },
+        ]);
+
+      const returnData = await operations.getSchemaChanges();
+
+      expect(returnData).toEqual([
+        {
+          collection: "companies",
+          validated_docs: 873000,
+          altered_docs: 0,
+        },
+      ]);
+    });
+
+    it("returns an empty array when no changes are in progress", async function () {
+      mockAxios
+        .onGet(
+          apiCall.uriFor(
+            "/operations/schema_changes",
+            typesense.configuration.nodes[0],
+          ),
+          null,
+          {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "X-TYPESENSE-API-KEY": typesense.configuration.apiKey,
+          },
+        )
+        .reply(200, []);
+
+      const returnData = await operations.getSchemaChanges();
+
+      expect(returnData).toEqual([]);
+    });
   });
 });
